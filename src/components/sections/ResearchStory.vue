@@ -108,7 +108,7 @@ const ablations = [
       <p class="eyebrow">01 · GEOMETRY</p>
       <h2>Motion Reveals Geometry</h2>
       <p class="lead">A moving monocular camera sees nearby and distant structures shift differently. SKYTOPIA's reconstructed flight environments supply the varied views and actions needed to learn from that cue.</p>
-      <div class="stats"><div><strong>94</strong><span>Reconstructed scenes</span></div><div><strong>32.5M</strong><span>Rendered frames</span></div><div><strong>94,000</strong><span>Expert trajectories</span></div></div>
+      <div class="stats"><div><strong>94</strong><span>Reconstructed scenes</span></div><div><strong>32.5M</strong><span>Rendered frames</span></div><div><strong>94k</strong><span>Expert trajectories</span></div></div>
       <p>LiDAR–camera capture supplies metric geometry and RGB images. 3D Gaussian Splatting reproduces appearance; a reconstructed mesh and a 10 cm signed distance field support collision and clearance queries. Isaac Sim supplies rigid-body dynamics for demonstration collection. The 3DGS scenes are the training environment, not the policy's latent predictor.</p>
       <figure><img :src="platform" loading="lazy" alt="Capture-to-simulation pipeline and examples of 18 indoor, 48 urban outdoor, and 28 vegetation scenes."><figcaption>18 indoor spaces · 48 urban outdoor sites · 28 vegetation environments. Five scenes are held out for OOD evaluation.</figcaption></figure>
       <GaussianSplats3D id="scenes" />
