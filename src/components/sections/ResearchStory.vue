@@ -12,6 +12,15 @@ import horizon from '../../assets/paper/fig10_horizon.png';
 import perturbations from '../../assets/paper/fig11_perturbations.png';
 
 const videoPath = (name) => `${import.meta.env.BASE_URL}videos/${name}`;
+const bibtex = `@misc{zhang2026skytopia,
+  title         = {Skytopia: Monocular Drone Navigation with Action-Conditioned Latent World Models},
+  author        = {Yuhang Zhang and Rangya Zhang and Yujing Shang and Zhuoyuan Yu and Weiying Wang and Steven Yang and Qingsong Yan and Chao Yan and Mir Feroskhan},
+  year          = {2026},
+  eprint        = {2609.26007},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO},
+  url           = {https://arxiv.org/abs/2609.26007}
+}`;
 
 const abstractText = [
   'Monocular drone navigation is difficult because a single forward-facing camera does not directly reveal depth or scale.',
@@ -182,8 +191,15 @@ const ablations = [
       <p class="eyebrow">RESOURCES</p>
       <h2>Paper, Code &amp; Citation</h2>
       <p>SKYTOPIA: Monocular Drone Navigation with Action-Conditioned Latent World Models</p>
-      <div class="resource-list"><span>Paper link · Pending</span><span>Code release · Pending</span><span>BibTeX · Pending publication details</span></div>
-      <p class="note">Public links and citation metadata will be added when confirmed.</p>
+      <div class="resource-list">
+        <a href="https://arxiv.org/abs/2609.26007" target="_blank" rel="noopener noreferrer">arXiv · 2609.26007 ↗</a>
+        <a href="https://arxiv.org/pdf/2609.26007" target="_blank" rel="noopener noreferrer">PDF ↗</a>
+        <span>Code release · Pending</span>
+      </div>
+      <div class="citation-block">
+        <p class="citation-label">BibTeX</p>
+        <pre><code>{{ bibtex }}</code></pre>
+      </div>
     </section>
   </main>
 </template>
@@ -240,7 +256,8 @@ th:first-child{text-align:left}thead th{font-size:12px;color:#62758d}tbody th{fo
 .real-grid article{border-top:2px solid #dce8f5;padding-top:20px}.real-grid p{margin-top:14px}
 .robustness-grid{display:grid;grid-template-columns:1fr;gap:12px}.robustness-grid figure{max-width:900px;margin:20px auto}
 .resource-section{text-align:center;border:0;padding-bottom:100px}
-.resource-list{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:24px 0}.resource-list span{padding:12px 18px;border:1px solid #dce5ef;border-radius:8px;font-size:13px;color:#6a7e95}
+.resource-list{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:24px 0}.resource-list a,.resource-list span{padding:12px 18px;border:1px solid #dce5ef;border-radius:8px;font-size:13px;color:#6a7e95;text-decoration:none}.resource-list a{border-color:#b9cee5;color:#245c9d;font-weight:700;transition:background .2s,border-color .2s}.resource-list a:hover{background:#f0f6fd;border-color:#7fa5cf}
+.citation-block{max-width:920px;margin:34px auto 0;text-align:left}.citation-label{margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#245c9d}.citation-block pre{margin:0;padding:22px 24px;overflow-x:auto;border:1px solid #dce5ef;border-radius:12px;background:#f7f9fc;color:#31465d;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;white-space:pre-wrap;overflow-wrap:anywhere}.citation-block code{font:inherit}
 button:focus-visible,.table-wrap:focus-visible{outline:3px solid #7aa9e8;outline-offset:4px}
 :deep(.paper-section){padding:20px 0;background:white}
 :deep(.section-title){font-size:26px}
