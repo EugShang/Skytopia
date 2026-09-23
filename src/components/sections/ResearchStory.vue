@@ -21,6 +21,28 @@ const bibtex = `@misc{zhang2026skytopia,
   primaryClass  = {cs.RO},
   url           = {https://arxiv.org/abs/2609.26007}
 }`;
+const citationOpen = ref(false);
+const citationCopied = ref(false);
+let citationTimer;
+
+async function revealAndCopyCitation() {
+  citationOpen.value = true;
+  try {
+    await navigator.clipboard.writeText(bibtex);
+  } catch {
+    const textarea = document.createElement('textarea');
+    textarea.value = bibtex;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+  }
+  citationCopied.value = true;
+  window.clearTimeout(citationTimer);
+  citationTimer = window.setTimeout(() => { citationCopied.value = false; }, 2400);
+}
 
 const abstractText = [
   'Monocular drone navigation is difficult because a single forward-facing camera does not directly reveal depth or scale.',
@@ -72,6 +94,7 @@ onBeforeUnmount(() => {
   demoObserver?.disconnect();
   document.removeEventListener('visibilitychange', syncDemoPlayback);
   reducedMotion?.removeEventListener('change', syncDemoPlayback);
+  window.clearTimeout(citationTimer);
 });
 const results = [
   ['BC', '16.8', '9.8', '7.8'],
@@ -192,13 +215,14 @@ const ablations = [
       <h2>Paper, Code &amp; Citation</h2>
       <p>SKYTOPIA: Monocular Drone Navigation with Action-Conditioned Latent World Models</p>
       <div class="resource-list">
-        <a href="https://arxiv.org/abs/2609.26007" target="_blank" rel="noopener noreferrer">arXiv · 2609.26007 ↗</a>
-        <a href="https://arxiv.org/pdf/2609.26007" target="_blank" rel="noopener noreferrer">PDF ↗</a>
-        <span>Code release · Pending</span>
+        <a href="https://arxiv.org/abs/2609.26007" target="_blank" rel="noopener noreferrer">Paper ↗</a>
+        <span>Code · Pending</span>
+        <button type="button" :aria-expanded="citationOpen" aria-controls="bibtex-citation" @click="revealAndCopyCitation">{{ citationCopied ? 'Copied ✓' : 'Citation' }}</button>
       </div>
-      <div class="citation-block">
+      <div v-if="citationOpen" id="bibtex-citation" class="citation-block">
         <p class="citation-label">BibTeX</p>
         <pre><code>{{ bibtex }}</code></pre>
+        <p class="copy-status" role="status">{{ citationCopied ? 'Copied to clipboard.' : 'Click Citation to copy again.' }}</p>
       </div>
     </section>
   </main>
@@ -256,8 +280,9 @@ th:first-child{text-align:left}thead th{font-size:12px;color:#62758d}tbody th{fo
 .real-grid article{border-top:2px solid #dce8f5;padding-top:20px}.real-grid p{margin-top:14px}
 .robustness-grid{display:grid;grid-template-columns:1fr;gap:12px}.robustness-grid figure{max-width:900px;margin:20px auto}
 .resource-section{text-align:center;border:0;padding-bottom:100px}
-.resource-list{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:24px 0}.resource-list a,.resource-list span{padding:12px 18px;border:1px solid #dce5ef;border-radius:8px;font-size:13px;color:#6a7e95;text-decoration:none}.resource-list a{border-color:#b9cee5;color:#245c9d;font-weight:700;transition:background .2s,border-color .2s}.resource-list a:hover{background:#f0f6fd;border-color:#7fa5cf}
+.resource-list{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:24px 0}.resource-list a,.resource-list span,.resource-list button{padding:12px 18px;border:1px solid #dce5ef;border-radius:8px;background:#fff;font:600 13px var(--paper-body);color:#6a7e95;text-decoration:none}.resource-list a,.resource-list button{border-color:#b9cee5;color:#245c9d;font-weight:700;cursor:pointer;transition:background .2s,border-color .2s}.resource-list a:hover,.resource-list button:hover{background:#f0f6fd;border-color:#7fa5cf}
 .citation-block{max-width:920px;margin:34px auto 0;text-align:left}.citation-label{margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#245c9d}.citation-block pre{margin:0;padding:22px 24px;overflow-x:auto;border:1px solid #dce5ef;border-radius:12px;background:#f7f9fc;color:#31465d;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;white-space:pre-wrap;overflow-wrap:anywhere}.citation-block code{font:inherit}
+.copy-status{margin:10px 0 0;text-align:right;font-size:12px;line-height:1.5;color:#6b7a8b}
 button:focus-visible,.table-wrap:focus-visible{outline:3px solid #7aa9e8;outline-offset:4px}
 :deep(.paper-section){padding:20px 0;background:white}
 :deep(.section-title){font-size:26px}
